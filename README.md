@@ -3,10 +3,16 @@
 ## 의존성 관리
 
 <pre>
-pip install -r requirements.txt
+$ sudo apt-get install libssl-dev
+$ sudo apt-get install python3-pip
+$ pip3 install -r requirements.txt
 </pre>
 
 ## Steemit
 
 * steemit.ipynb
-* sttemit.py
+* steemit.py
+
+```
+$ python3 steemit.py
+```
