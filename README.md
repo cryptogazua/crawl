@@ -11,6 +11,14 @@ $ pip3 install -r requirements.txt
 ## Steemit
 
 * steemit.ipynb
+* sttemit.py
+
+## Kafka 연동
+
+1. Kafka 실행
+2. publish   프로그램 실행: pub.sh
+3. subscribe 프로그램 실행: sub.sh
+=======
 * steemit.py
 
 ```
