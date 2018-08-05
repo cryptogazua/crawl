@@ -34,13 +34,19 @@ from pyspark.sql.functions import *
 
 KEYWORDS = ('btc', 'etc', 'xrp', 'bch', 'eos')
 def pub_steemit():
-    for links in [get_created_link(k) for k in KEYWORDS]:
+    links_list = []
+    try:
+        links_list = [get_created_link(k) for k in KEYWORDS]
+    except Exception as e:
+        print("links_list => " + e)
+
+    for links in links_list:
         for link in links:
             steemit_id, permlink = get_post_from_link(link)
             try:
                 s = Steem()
             except Exception as e:
-                print(e)
+                print("Steem() => " + e)
                 continue
             post_dic = s.get_content(steemit_id, permlink)
             #print(steemit_id, permlink)
