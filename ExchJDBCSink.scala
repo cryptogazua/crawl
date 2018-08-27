@@ -2,7 +2,7 @@ import org.apache.spark.sql._
 import java.sql._
 
 class ExchJDBCSink(url:String, user:String, pwd:String) extends ForeachWriter[Row] {
-    val driver = "com.mysql.jdbc.Driver"
+    val driver = "org.mariadb.jdbc.Driver"
     var connection:Connection = _
     var statement:Statement = _
     val sql = "INSERT INTO quote VALUES(?,?,?,?,?,?)"
