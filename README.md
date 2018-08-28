@@ -79,20 +79,20 @@ pwd=<DB비밀번호>
 
 1. publish   프로그램 실행
 ```
-~/crawl$ pub.sh 
+~/crawl$ ./pub.sh 
 ```
 2. subscribe 프로그램 실행
 ```
-~/crawl$ sub.sh 
+~/crawl$ ./sub.sh 
 ```
 
 ## 암호화폐 시세 처리기 실행
 
 1. publish   프로그램 실행
 ```
-~/crawl$ exchpub.sh 
+~/crawl$ ./exchpub.sh 
 ```
 2. subscribe 프로그램 실행
 ```
-~/crawl$ exchsub.sh 
+~/crawl$ ./exchsub.sh 
 ```
