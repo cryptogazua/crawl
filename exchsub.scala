@@ -12,6 +12,7 @@ object exchsub {
     val url = p.getProperty("url")
     val user = p.getProperty("user")
     val pwd  = p.getProperty("pwd")
+    
     val writer = new ExchJDBCSink(url, user, pwd)
     val spark = SparkSession
       .builder()
