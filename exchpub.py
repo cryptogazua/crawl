@@ -57,7 +57,7 @@ class Bithumb:
     def get_all_updates(self):
         quote = self.get_all_quote()
         up_quote = {}
-        print("1 - len(self.quote) = %d" % len(self.quote))
+        # print("1 - len(self.quote) = %d" % len(self.quote))
         if len(self.quote) > 0:
             for currency in quote:
                 if currency in self.quote:
@@ -66,10 +66,10 @@ class Bithumb:
                     if lqc['close'] != cqc['close']:
                         up_quote[currency] = cqc
         else:
-            print("up_quote")
+            # print("up_quote")
             up_quote = quote
         self.quote = deepcopy(quote)
-        print("2 - len(self.quote) = %d" % len(self.quote))
+        # print("2 - len(self.quote) = %d" % len(self.quote))
         return up_quote
 
 import findspark
@@ -86,23 +86,20 @@ from pyspark.sql.functions import *
 
 # KEYWORDS = ('btc', 'etc', 'xrp', 'bch', 'eos')
 def pub_steemit(exch):
-    #quotes = exch.get_all_quote()
-    quotes = exch.get_all_updates()
+    quotes = exch.get_all_quote() # 모든 시세 처리
+    #quotes = exch.get_all_updates() # 현재가가 갱신되는 시세만 처리
+
     quote_list = []
     for c in quotes:
         # https://stackoverflow.com/questions/13890935/does-pythons-time-time-return-the-local-or-utc-timestamp
         quotes[c]['eventTime'] = int(time.time())
         quote_dic = {'key':c, 'value':str(quotes[c])}
-        #quote = quotes[c]
-        #for k in quote:
-        #    quote_dic[k] = quote[k]
         quote_list.append(quote_dic)
 
     if len(quote_list) == 0:
         return
 
     df = spark.createDataFrame(quote_list)
-    #df.printSchema()
     df.write \
         .format("kafka") \
         .option("kafka.bootstrap.servers", "localhost:9092") \
