@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from steem import Steem
 import time
+import json
 
 # 새글 q 검색어로 링크만 가져오기
 def get_created_link(q):
@@ -33,14 +34,15 @@ from pyspark.sql import *
 from pyspark.sql.functions import *
 
 KEYWORDS = ('btc', 'etc', 'xrp', 'bch', 'eos')
+NEEDED = ('author','permlink','last_update','id','category','title','body','created','net_votes')
 def pub_steemit():
     links_list = []
     try:
-        links_list = [get_created_link(k) for k in KEYWORDS]
+        links_list = [(k, get_created_link(k)) for k in KEYWORDS]
     except Exception as e:
         print("links_list => " + e)
 
-    for links in links_list:
+    for k, links in links_list:
         for link in links:
             steemit_id, permlink = get_post_from_link(link)
             try:
@@ -51,8 +53,13 @@ def pub_steemit():
             post_dic = s.get_content(steemit_id, permlink)
             #print(steemit_id, permlink)
             #print(post_dic)
-
-            d=[{'steemit_id':steemit_id, 'permlink':permlink, 'key':steemit_id, 'value':str(post_dic)}]
+            dic = {}
+            dic['keyword'] = k
+            for field in NEEDED:
+                if field in post_dic:
+                    dic[field] = post_dic[field]
+                    #dic[field] = post_dic[field].encode('utf-8') if type(post_dic[field]) is str else post_dic[field]
+            d=[{'key':steemit_id, 'value':str(dic)}]
             df = spark.createDataFrame(d)
             df.write \
                 .format("kafka") \
@@ -65,4 +72,5 @@ if __name__ == "__main__":
     start = time.time()
     while True:
         pub_steemit()
-        time.sleep(60.0 - ((time.time() - start) % 60.0) )
+        #time.sleep(60.0 - ((time.time() - start) % 60.0) )
+        time.sleep(1.0 - ((time.time() - start) % 1.0) )
