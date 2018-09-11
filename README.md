@@ -1,5 +1,7 @@
 # cryptogazua
 
+가상화폐거래소 시세와 Steemit 글을 Kafka를 통해 Structured Streaming 처리하여 mariaDB에 저장합니다.
+
 Ubuntu 16.04 LTS 진행하였습니다.
 
 ## 프로젝트 다운로드
@@ -96,3 +98,18 @@ pwd=<DB비밀번호>
 ```
 ~/crawl$ ./exchsub.sh 
 ```
+
+## 처리기 background 실행
+
+* 위의 4개의 sh 뒤에 인자로 nohup을 추가하면 처리기가 background 실행됩니다.
+예시)
+```
+~/crawl$ ./exchpub.sh nohup
+```
+* 위의 sh을 실행하면 실제 실행되는 명령어(command)는 다음과 같습니다.
+예시)
+```
+~/crawl$ nohup $SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0 exchpub.py 2> /dev/null
+```
+
+* 참고자료 : http://sdr1982.tistory.com/215
