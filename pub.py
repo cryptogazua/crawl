@@ -47,10 +47,10 @@ def pub_steemit():
             steemit_id, permlink = get_post_from_link(link)
             try:
                 s = Steem()
+                post_dic = s.get_content(steemit_id, permlink)
             except Exception as e:
                 print("Steem() => " + e)
                 continue
-            post_dic = s.get_content(steemit_id, permlink)
             #print(steemit_id, permlink)
             #print(post_dic)
             dic = {}
