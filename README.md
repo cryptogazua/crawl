@@ -1,6 +1,6 @@
 # cryptogazua
 
-가상화폐거래소 시세와 Steemit 글을 Kafka를 통해 Structured Streaming 처리하여 mariaDB에 저장합니다.
+가상화폐거래소 시세와 Steemit 글을 Kafka를 통해 Spark Structured Streaming 처리하여 mariaDB에 저장합니다.
 
 Ubuntu 16.04 LTS 진행하였습니다.
 
