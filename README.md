@@ -12,6 +12,12 @@ Ubuntu 16.04 LTS 진행하였습니다.
 
 ## 필요 프로그램 설치
 
+* 최초 필요한 프로그램(패키지) 설치
+  - 특히 ubuntu 16.04를 docker image로 실행할 시 필요
+```
+~/crawl$ ./setup_init.sh
+```
+
 * Kafka 2.11-2.0.0 설치
 ```
 ~/crawl$ ./setup_kafka.sh
