@@ -24,7 +24,11 @@ class Bithumb:
             quote['low'] = float(data['min_price'])
             quote['close'] = float(data['closing_price'])
             quote['change'] = quote['close'] - quote['open']
-            quote['rate'] = quote['change'] / quote['open'] * 100.0
+            if not quote['open']:
+                # print("open=0.0", str(quote))
+                quote['rate'] = 0.0
+            else:
+                quote['rate'] = quote['change'] / quote['open'] * 100.0
         except Exception as e:
             print("get_ohlcs error", str(e))
             quote = {}
