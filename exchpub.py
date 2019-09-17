@@ -103,7 +103,10 @@ def pub_steemit(exch):
     if len(quote_list) == 0:
         return
 
-    df = spark.createDataFrame(quote_list)
+    #print(quote_list)
+    #https://stackoverflow.com/questions/52238803/how-to-convert-list-of-dictionaries-into-pyspark-dataframe
+    #df = spark.createDataFrame(quote_list)
+    df = spark.createDataFrame(Row(**x) for x in quote_list)
     df.write \
         .format("kafka") \
         .option("kafka.bootstrap.servers", "localhost:9092") \

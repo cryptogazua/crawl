@@ -33,7 +33,7 @@ spark = SparkSession(sc)
 from pyspark.sql import *
 from pyspark.sql.functions import *
 
-KEYWORDS = ('btc', 'etc', 'xrp', 'bch', 'eos')
+KEYWORDS = ('btc', 'eth', 'xrp', 'bch', 'eos')
 NEEDED = ('author','permlink','last_update','id','category','title','body','created','net_votes')
 def pub_steemit():
     links_list = []
@@ -49,7 +49,7 @@ def pub_steemit():
                 s = Steem()
                 post_dic = s.get_content(steemit_id, permlink)
             except Exception as e:
-                print("Steem() => " + e)
+                print("Steem() Exception => ", e)
                 continue
             #print(steemit_id, permlink)
             #print(post_dic)
@@ -60,7 +60,9 @@ def pub_steemit():
                     dic[field] = post_dic[field]
                     #dic[field] = post_dic[field].encode('utf-8') if type(post_dic[field]) is str else post_dic[field]
             d=[{'key':steemit_id, 'value':str(dic)}]
-            df = spark.createDataFrame(d)
+            #https://stackoverflow.com/questions/52238803/how-to-convert-list-of-dictionaries-into-pyspark-dataframe
+            #df = spark.createDataFrame(d)
+            df = spark.createDataFrame(Row(**x) for x in d)
             df.write \
                 .format("kafka") \
                 .option("kafka.bootstrap.servers", "localhost:9092") \
