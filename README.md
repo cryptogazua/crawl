@@ -1,8 +1,27 @@
 # cryptogazua
 
+## 내가 쓴 글이 시세에 영향을 줄까?
+
 가상화폐거래소 시세와 Steemit 글을 Kafka를 통해 Spark Structured Streaming 처리하여 mariaDB에 저장합니다.
 
 Ubuntu 16.04 LTS 진행하였습니다.
+
+## Docker ubuntu 16.04일 경우(option)
+* docker ubuntu:16.04 실행
+```
+$ docker run -it ubuntu:16.04 /bin/bash
+```
+* git 설치
+```
+# apt-get update
+# apt-get install git
+# git clone https://github.com/cryptogazua/crawl.git
+# cd crawl
+```
+* 최초 필요한 프로그램(패키지) 설치
+```
+crawl# ./setup_init.sh
+```
 
 ## 프로젝트 다운로드
 ```
@@ -12,18 +31,12 @@ Ubuntu 16.04 LTS 진행하였습니다.
 
 ## 필요 프로그램 설치
 
-* 최초 필요한 프로그램(패키지) 설치
-  - 특히 ubuntu 16.04를 docker image로 실행할 시 필요
-```
-~/crawl$ ./setup_init.sh
-```
-
-* Kafka 2.11-2.0.0 설치
+* Kafka 2.11-2.3.0 설치
 ```
 ~/crawl$ ./setup_kafka.sh
 ```
 
-* Spark 2.3.1 설치
+* Spark 2.4.4 설치
 ```
 ~/crawl$ ./setup_spark.sh
 ```
@@ -67,12 +80,18 @@ Ubuntu 16.04 LTS 진행하였습니다.
 ~/crawl$ ./kafka.sh &
 ```
 
-## Steemit API 사용예제
+## Steemit API 사용예제(option)
 
 * steemit.ipynb
 * steemit.py
 ```
 $ python3 steemit.py
+```
+
+## Database 테이블 추가
+
+```
+~/crawl$ mysql -h<DB IP> -uroot -p <DB> < gazua.sql
 ```
 
 ## gazua.ini 설정파일 세팅
