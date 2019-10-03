@@ -104,24 +104,24 @@ pwd=<DB비밀번호>
 
 ## Steemit 처리기 실행
 
-1. publish   프로그램 실행
+1. publish 프로그램 실행
 ```
-~/crawl$ ./pub.sh 
+~/crawl$ nohup ./pub.sh
 ```
 2. subscribe 프로그램 실행
 ```
-~/crawl$ ./sub.sh 
+~/crawl$ nohup ./sub.sh
 ```
 
 ## 암호화폐 시세 처리기 실행
 
 1. publish   프로그램 실행
 ```
-~/crawl$ ./exchpub.sh 
+~/crawl$ nohup ./exchpub.sh
 ```
 2. subscribe 프로그램 실행
 ```
-~/crawl$ ./exchsub.sh 
+~/crawl$ nohup ./exchsub.sh
 ```
 
 ## 처리기 background 실행
