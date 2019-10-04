@@ -15,6 +15,7 @@ class ExchJDBCSink(url:String, user:String, pwd:String) extends ForeachWriter[Ro
     }
 
     def process(value: Row): Unit = {
+        if(value(1) == null) return
         val pstmt = connection.prepareStatement(sql)
         pstmt.setString(1, value(0).toString)
         pstmt.setString(2, value(1).toString)
@@ -26,7 +27,11 @@ class ExchJDBCSink(url:String, user:String, pwd:String) extends ForeachWriter[Ro
         pstmt.setDouble(8, value(3).toString.toDouble)
         pstmt.setDouble(9, value(4).toString.toDouble)
         pstmt.setDouble(10, value(5).toString.toDouble)
-        pstmt.executeUpdate()
+        try {
+            pstmt.executeUpdate()
+        } catch {
+            case e: SQLException => { println("Exception ", e); }
+        }
     }
 
     def close(errorOrNull:Throwable): Unit = {

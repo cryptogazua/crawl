@@ -37,7 +37,7 @@ class JDBCSink(url:String, user:String, pwd:String) extends ForeachWriter[Row] {
         try {
             pstmt.executeUpdate()
         } catch {
-            case e: SQLException => { }
+            case e: SQLException => { println("Exception ", e); }
         }
     }
 
