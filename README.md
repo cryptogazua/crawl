@@ -6,6 +6,14 @@
 
 Ubuntu 16.04 LTS 진행하였습니다.
 
+### Project Presentation
+
+* [https://docs.google.com/presentation/d/19JNUkXHpQhbuaUkwi_tqa__J-cvt_aGcZENvZoO_ZIU/edit?usp=sharing](https://docs.google.com/presentation/d/19JNUkXHpQhbuaUkwi_tqa__J-cvt_aGcZENvZoO_ZIU/edit?usp=sharing)
+
+### Dashboard
+
+* [https://github.com/cryptogazua/gazua](https://github.com/cryptogazua/gazua)
+
 ## Docker ubuntu 16.04일 경우(option)
 * docker ubuntu:16.04 실행
 ```
