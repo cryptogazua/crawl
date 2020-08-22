@@ -36,17 +36,21 @@ class Bithumb:
 
     def get_quote(self):
         quote = {}
-        res = requests.get(self.url)
-        quote_json = json.loads(res.text)
-        if 'status' in quote_json and quote_json['status'] == '0000':
-            quote = self.get_ohlcs(quote_json['data'])
+        try:
+            res = requests.get(self.url, timeout=10)
+            quote_json = json.loads(res.text)
+            if 'status' in quote_json and quote_json['status'] == '0000':
+                quote = self.get_ohlcs(quote_json['data'])
+        except Exception as e:
+            print("get_quote error", str(e))
+            quote = {}
         return quote
 
     def get_all_quote(self):
         quote = {}
         # https://stackoverflow.com/questions/23013220/max-retries-exceeded-with-url
         try:
-            res = requests.get(URL_ALL)
+            res = requests.get(URL_ALL, timeout=10)
             quote_json = json.loads(res.text)
         except Exception as e:
             print("get_all_quote error", str(e))
